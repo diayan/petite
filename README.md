@@ -1,6 +1,6 @@
 # Petit
 
-CardView tutorial for Raywenderlich Android team
+CardView tutorial project for Raywenderlich Android team
 
 ## License
 
