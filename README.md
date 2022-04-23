@@ -1,6 +1,6 @@
 # Petit
 
-Sample Android app
+CardView tutorial for Raywenderlich Android team
 
 ## License
 
