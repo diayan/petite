@@ -32,8 +32,28 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.android.petit.Network
+package com.raywenderlich.petit.Network
 
-data class PhotoCollection(
-    val id: String
+data class Photos(
+    val id: String,
+    val name: String,
+    val likes: String,
+    val urLs: ImageURLs,
+    val downloads: Int,
+    val profileImage: ProfileImage
 )
+
+data class ProfileImage(
+    val small: String?,
+    val medium: String?,
+    val large: String?
+)
+
+data class ImageURLs(
+    val full: String?,
+    val raw: String?,
+    val regular: String?,
+    val small: String?,
+    val thumb: String?
+)
+

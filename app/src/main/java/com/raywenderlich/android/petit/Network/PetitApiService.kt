@@ -34,6 +34,7 @@
 
 package com.raywenderlich.android.petit.Network
 
+import com.raywenderlich.petit.Network.Photos
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -54,7 +55,7 @@ interface PetitApiService {
 
   //TODO: change endpoint to actual endpoint
   @GET("photos")
-  suspend fun getCollection(): PhotoCollection
+  suspend fun getCollection(): Photos
 }
 
 
