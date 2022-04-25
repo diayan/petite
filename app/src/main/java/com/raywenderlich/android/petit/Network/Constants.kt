@@ -34,29 +34,6 @@
 
 package com.raywenderlich.android.petit.Network
 
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.GET
-
-
-private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
-    .build()
-
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .baseUrl(BASE_URL)
-    .build()
-
-interface PetitApiService {
-
-  //TODO: change endpoint to actual endpoint
-  @GET("photos")
-  suspend fun getCollection(): PhotoCollection
-}
-
-
-
-
+const val BASE_URL = "https://api.unsplash.com/"
+const val ACCESS_KEY = "_T6c1_2XLPYme2_Vt2J2hm3sP-CmWHciFbwP8d2_pDk"
+const val SECRET_KEY = "3b3Sq-CCoKMVFTydlZwKgurmxZGOyNU_PpIVXEogBOU"
