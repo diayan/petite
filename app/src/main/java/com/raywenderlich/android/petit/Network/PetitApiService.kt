@@ -58,6 +58,12 @@ interface PetitApiService {
   suspend fun getCollection(): Photos
 }
 
+object PetitApi {
+  val retrofitService: PetitApiService by lazy {
+    retrofit.create(PetitApiService::class.java)
+  }
+}
+
 
 
 
