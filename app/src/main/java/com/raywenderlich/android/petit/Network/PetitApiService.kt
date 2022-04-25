@@ -55,7 +55,7 @@ interface PetitApiService {
 
   //TODO: change endpoint to actual endpoint
   @GET("photos")
-  suspend fun getCollection(): Photos
+  suspend fun getAllPhotos(): Photos
 }
 
 object PetitApi {
