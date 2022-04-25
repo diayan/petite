@@ -34,8 +34,46 @@
 
 package com.raywenderlich.android.petit
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.raywenderlich.android.petit.Network.PetitApi
+import com.raywenderlich.petit.Network.Photos
+import kotlinx.coroutines.*
 
-class MainViewModel: ViewModel() {
+enum class PetitApiStatus { LOADING, ERROR, DONE }
 
+class MainViewModel : ViewModel() {
+  private val _status = MutableLiveData<PetitApiStatus>()
+  val status: LiveData<PetitApiStatus>
+  get() = _status
+
+  private val _photos = MutableLiveData<List<Photos>>()
+  val photos: MutableLiveData<List<Photos>>
+  get() = _photos
+
+  private var viewModelJob = Job()
+  private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+  init {
+    getPhotos()
+  }
+
+  private fun getPhotos() {
+    coroutineScope.launch {
+      var getPhotos = PetitApi.retrofitService.getAllPhotos()
+      try {
+        val listResult = getPhotos
+        _photos.value = listResult
+      }catch (e: Exception) {
+        _photos.value = ArrayList()
+      }
+    }
+  }
+
+  //cancel view model job once the viewmodel is done
+  override fun onCleared() {
+    super.onCleared()
+    viewModelJob.cancel()
+  }
 }

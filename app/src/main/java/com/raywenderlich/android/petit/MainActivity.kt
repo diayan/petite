@@ -36,11 +36,14 @@ package com.raywenderlich.android.petit
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 
 /**
  * Main Screen
  */
 class MainActivity : AppCompatActivity() {
+
+  private lateinit var viewModel: MainViewModel
 
   override fun onCreate(savedInstanceState: Bundle?) {
     // Switch to AppTheme for displaying the activity
@@ -50,7 +53,8 @@ class MainActivity : AppCompatActivity() {
     setContentView(R.layout.activity_main)
 
     // Your code
-
-
+    viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+    //TODO: Now use view model
+    viewModel.photos
   }
 }
