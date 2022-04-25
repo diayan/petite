@@ -34,26 +34,35 @@
 
 package com.raywenderlich.petit.Network
 
-data class Photos(
-    val id: String,
-    val name: String,
-    val likes: String,
-    val urLs: ImageURLs,
-    val downloads: Int,
-    val profileImage: ProfileImage
-)
+import android.os.Parcelable
+import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
+data class Photos(
+    val id: String?,
+    val name: String?,
+    val likes: String?,
+    @Json(name = "urls")
+    val urLs: ImageURLs?,
+    val downloads: Int?,
+    @Json(name = "profile_image")
+    val profileImage: ProfileImage?
+) : Parcelable
+
+@Parcelize
 data class ProfileImage(
     val small: String?,
     val medium: String?,
     val large: String?
-)
+) : Parcelable
 
+@Parcelize
 data class ImageURLs(
     val full: String?,
     val raw: String?,
     val regular: String?,
     val small: String?,
     val thumb: String?
-)
+) : Parcelable
 
