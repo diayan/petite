@@ -54,7 +54,7 @@ private val retrofit = Retrofit.Builder()
 interface PetitApiService {
 
   //TODO: change endpoint to actual endpoint
-  @GET("photos")
+  @GET("photos/?client_id=$ACCESS_KEY")
   suspend fun getAllPhotos(): List<Photos>
 }
 

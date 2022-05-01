@@ -34,6 +34,7 @@
 
 package com.raywenderlich.android.petit
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -57,6 +58,7 @@ class MainViewModel : ViewModel() {
 
   init {
     getPhotos()
+    Log.i("ViewModel: ", "ViewModel initialized")
   }
 
   private fun getPhotos() {
@@ -64,9 +66,11 @@ class MainViewModel : ViewModel() {
       var getPhotos = PetitApi.retrofitService.getAllPhotos()
       try {
         val listResult = getPhotos
+        Log.i("ViewModel: ", "success")
         _photos.value = listResult
       }catch (e: Exception) {
         _photos.value = ArrayList()
+        Log.i("ViewModel: ", "failed ")
       }
     }
   }
