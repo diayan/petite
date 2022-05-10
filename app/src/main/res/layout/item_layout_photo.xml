@@ -39,7 +39,7 @@
   <data>
     <variable
         name="photo"
-        type="com.raywenderlich.petit.Network.Photos" />
+        type="com.raywenderlich.android.petit.Network.Photos" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
