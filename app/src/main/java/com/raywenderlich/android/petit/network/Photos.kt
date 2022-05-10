@@ -32,52 +32,37 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.android.petit
+package com.raywenderlich.android.petit.network
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.raywenderlich.android.petit.network.PetitApi
-import com.raywenderlich.android.petit.network.Photos
-import kotlinx.coroutines.*
+import android.os.Parcelable
+import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
-enum class PetitApiStatus { LOADING, ERROR, DONE }
+@Parcelize
+data class Photos(
+    val id: String?,
+    val name: String?,
+    val likes: String?,
+    @Json(name = "urls")
+    val urLs: ImageURLs?,
+    val downloads: Int?,
+    @Json(name = "profile_image")
+    val profileImage: ProfileImage?
+) : Parcelable
 
-class MainViewModel : ViewModel() {
-  private val _status = MutableLiveData<PetitApiStatus>()
-  val status: LiveData<PetitApiStatus>
-  get() = _status
+@Parcelize
+data class ProfileImage(
+    val small: String?,
+    val medium: String?,
+    val large: String?
+) : Parcelable
 
-  private val _photos = MutableLiveData<List<Photos>>()
-  val photos: MutableLiveData<List<Photos>>
-  get() = _photos
+@Parcelize
+data class ImageURLs(
+    val full: String?,
+    val raw: String?,
+    val regular: String?,
+    val small: String?,
+    val thumb: String?
+) : Parcelable
 
-  private var viewModelJob = Job()
-  private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
-  init {
-    getPhotos()
-    Log.i("ViewModel: ", "ViewModel initialized")
-  }
-
-  private fun getPhotos() {
-    coroutineScope.launch {
-      var getPhotos = PetitApi.retrofitService.getAllPhotos()
-      try {
-        val listResult = getPhotos
-        Log.i("ViewModel: ", "success")
-        _photos.value = listResult
-      }catch (e: Exception) {
-        _photos.value = ArrayList()
-        Log.i("ViewModel: ", "failed ")
-      }
-    }
-  }
-
-  //cancel view model job once the viewmodel is done
-  override fun onCleared() {
-    super.onCleared()
-    viewModelJob.cancel()
-  }
-}

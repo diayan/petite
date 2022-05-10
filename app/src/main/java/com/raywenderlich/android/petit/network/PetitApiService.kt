@@ -32,49 +32,37 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.android.petit.Network
+package com.raywenderlich.android.petit.network
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.raywenderlich.android.petit.databinding.ItemLayoutPhotoBinding
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.http.GET
 
-class PhotoListAdapter(val onClickListener: OnClickListener) :
-    ListAdapter<Photos, PhotoListAdapter.PhotoListViewHolder>(DiffCallback) {
 
-  class PhotoListViewHolder(private var binding: ItemLayoutPhotoBinding) : RecyclerView.ViewHolder
-  (binding.root) {
-    fun bind(photo: Photos) {
-      binding.photo = photo
-      //force data binding to execute immediately
-      binding.executePendingBindings()
-    }
-  }
+private val moshi = Moshi.Builder()
+    .add(KotlinJsonAdapterFactory())
+    .build()
 
-  companion object DiffCallback : DiffUtil.ItemCallback<Photos>() {
+private val retrofit = Retrofit.Builder()
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .baseUrl(BASE_URL)
+    .build()
 
-    override fun areItemsTheSame(oldItem: Photos, newItem: Photos): Boolean {
-      return oldItem === newItem
-    }
+interface PetitApiService {
 
-    override fun areContentsTheSame(oldItem: Photos, newItem: Photos): Boolean {
-      return oldItem.id == newItem.id
-    }
-  }
+  //TODO: change endpoint to actual endpoint
+  @GET("photos/?client_id=$ACCESS_KEY")
+  suspend fun getAllPhotos(): List<Photos>
+}
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoListViewHolder {
-    return PhotoListViewHolder(ItemLayoutPhotoBinding.inflate(LayoutInflater.from(parent.context)))
-  }
-
-  override fun onBindViewHolder(holder: PhotoListViewHolder, position: Int) {
-    val photo = getItem(position)
-    holder.bind(photo)
-  }
-
-  class OnClickListener(val clickListener: (photo: Photos) -> Unit) {
-
-    fun onClick(photo: Photos) = clickListener(photo)
+object PetitApi {
+  val retrofitService: PetitApiService by lazy {
+    retrofit.create(PetitApiService::class.java)
   }
 }
+
+
+
+

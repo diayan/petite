@@ -32,37 +32,15 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.android.petit.Network
+package com.raywenderlich.android.petit
 
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.GET
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.raywenderlich.android.petit.network.PhotoListAdapter
+import com.raywenderlich.android.petit.network.Photos
 
-
-private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
-    .build()
-
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .baseUrl(BASE_URL)
-    .build()
-
-interface PetitApiService {
-
-  //TODO: change endpoint to actual endpoint
-  @GET("photos/?client_id=$ACCESS_KEY")
-  suspend fun getAllPhotos(): List<Photos>
+@BindingAdapter("listData")
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<Photos>?) {
+  val adapter = recyclerView.adapter as PhotoListAdapter
+  adapter.submitList(data)
 }
-
-object PetitApi {
-  val retrofitService: PetitApiService by lazy {
-    retrofit.create(PetitApiService::class.java)
-  }
-}
-
-
-
-

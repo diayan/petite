@@ -32,7 +32,7 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.android.petit.Network
+package com.raywenderlich.android.petit.network
 
 const val BASE_URL = "https://api.unsplash.com/"
 const val ACCESS_KEY = "_T6c1_2XLPYme2_Vt2J2hm3sP-CmWHciFbwP8d2_pDk"
