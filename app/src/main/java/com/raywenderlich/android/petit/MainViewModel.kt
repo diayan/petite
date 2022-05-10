@@ -39,7 +39,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.raywenderlich.android.petit.Network.PetitApi
-import com.raywenderlich.petit.Network.Photos
+import com.raywenderlich.android.petit.Network.Photos
 import kotlinx.coroutines.*
 
 enum class PetitApiStatus { LOADING, ERROR, DONE }

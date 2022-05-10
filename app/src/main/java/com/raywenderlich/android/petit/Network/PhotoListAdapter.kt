@@ -34,35 +34,47 @@
 
 package com.raywenderlich.android.petit.Network
 
-import android.os.Parcelable
-import com.squareup.moshi.Json
-import kotlinx.android.parcel.Parcelize
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.raywenderlich.android.petit.databinding.ItemLayoutPhotoBinding
 
-@Parcelize
-data class Photos(
-    val id: String?,
-    val name: String?,
-    val likes: String?,
-    @Json(name = "urls")
-    val urLs: ImageURLs?,
-    val downloads: Int?,
-    @Json(name = "profile_image")
-    val profileImage: ProfileImage?
-) : Parcelable
+class PhotoListAdapter(val onClickListener: OnClickListener) :
+    ListAdapter<Photos, PhotoListAdapter.PhotoListViewHolder>(DiffCallback) {
 
-@Parcelize
-data class ProfileImage(
-    val small: String?,
-    val medium: String?,
-    val large: String?
-) : Parcelable
+  class PhotoListViewHolder(private var binding: ItemLayoutPhotoBinding) : RecyclerView.ViewHolder
+  (binding.root) {
+    fun bind(photo: Photos) {
+      binding.photo = photo
+      //force data binding to execute immediately
+      binding.executePendingBindings()
+    }
+  }
 
-@Parcelize
-data class ImageURLs(
-    val full: String?,
-    val raw: String?,
-    val regular: String?,
-    val small: String?,
-    val thumb: String?
-) : Parcelable
+  companion object DiffCallback : DiffUtil.ItemCallback<Photos>() {
 
+    override fun areItemsTheSame(oldItem: Photos, newItem: Photos): Boolean {
+      return oldItem === newItem
+    }
+
+    override fun areContentsTheSame(oldItem: Photos, newItem: Photos): Boolean {
+      return oldItem.id == newItem.id
+    }
+  }
+
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoListViewHolder {
+    return PhotoListViewHolder(ItemLayoutPhotoBinding.inflate(LayoutInflater.from(parent.context)))
+  }
+
+  override fun onBindViewHolder(holder: PhotoListViewHolder, position: Int) {
+    val photo = getItem(position)
+    holder.bind(photo)
+  }
+
+  class OnClickListener(val clickListener: (photo: Photos) -> Unit) {
+
+    fun onClick(photo: Photos) = clickListener(photo)
+  }
+}
