@@ -34,6 +34,7 @@
 
 package com.raywenderlich.android.petit
 
+import android.util.Log
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.raywenderlich.android.petit.network.PhotoListAdapter
@@ -41,6 +42,7 @@ import com.raywenderlich.android.petit.network.Photos
 
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Photos>?) {
-  val adapter = recyclerView.adapter as PhotoListAdapter
-  adapter.submitList(data)
+  val adapter = recyclerView.adapter as? PhotoListAdapter?
+  Log.i("adapter", data.toString())
+  adapter?.submitList(data)
 }

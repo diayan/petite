@@ -34,28 +34,28 @@
 
 package com.raywenderlich.android.petit.network
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.raywenderlich.android.petit.network.Photos
 import com.raywenderlich.android.petit.databinding.ItemLayoutPhotoBinding
 
-class PhotoListAdapter(val onClickListener: OnClickListener) :
+class PhotoListAdapter(val onClickListener: () -> Unit) :
     ListAdapter<Photos, PhotoListAdapter.PhotoListViewHolder>(DiffCallback) {
 
   class PhotoListViewHolder(private var binding: ItemLayoutPhotoBinding) : RecyclerView.ViewHolder
   (binding.root) {
     fun bind(photo: Photos) {
       binding.photo = photo
+      Log.i("Binding: ", photo.toString())
       //force data binding to execute immediately
       binding.executePendingBindings()
     }
   }
 
   companion object DiffCallback : DiffUtil.ItemCallback<Photos>() {
-
     override fun areItemsTheSame(oldItem: Photos, newItem: Photos): Boolean {
       return oldItem === newItem
     }

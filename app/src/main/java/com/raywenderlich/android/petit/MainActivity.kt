@@ -35,10 +35,10 @@
 package com.raywenderlich.android.petit
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.raywenderlich.android.petit.databinding.ActivityMainBinding
+import com.raywenderlich.android.petit.network.PhotoListAdapter
 
 /**
  * Main Screen
@@ -51,12 +51,14 @@ class MainActivity : AppCompatActivity() {
     // Switch to AppTheme for displaying the activity
     setTheme(R.style.AppTheme)
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
 
+    val binding = ActivityMainBinding.inflate(layoutInflater)
+    binding.lifecycleOwner = this
+
+    binding.photosList.adapter = PhotoListAdapter {}
     viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-    //TODO: Now use view model
-    viewModel.photos.observe(this, Observer {
-      Log.i("data element: ", "$it")
-    })
+    binding.viewModel = viewModel
+
+    binding.root
   }
 }
