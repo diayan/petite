@@ -35,6 +35,7 @@
 package com.raywenderlich.android.petit
 
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
@@ -58,9 +59,26 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     Glide.with(imgView.context)
         .load(imgUri)
         .apply(RequestOptions()
-//            .placeholder(R.drawable.loading_animation)
-//            .error(R.drawable.ic_broken_image)
+            .placeholder(R.drawable.loading_animation)
+            .error(R.drawable.ic_broken_image)
         )
         .into(imgView)
+  }
+}
+
+@BindingAdapter("petitApiStatus")
+fun bindStatus(statusImageView: ImageView, status: PetitApiStatus?) {
+  when (status) {
+    PetitApiStatus.LOADING -> {
+      statusImageView.visibility = View.VISIBLE
+      statusImageView.setImageResource(R.drawable.loading_animation)
+    }
+    PetitApiStatus.ERROR -> {
+      statusImageView.visibility = View.VISIBLE
+      statusImageView.setImageResource(R.drawable.ic_connection_error)
+    }
+    PetitApiStatus.DONE -> {
+      statusImageView.visibility = View.GONE
+    }
   }
 }

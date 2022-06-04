@@ -62,9 +62,12 @@ class MainViewModel : ViewModel() {
   private fun getAllPhotos() {
     coroutineScope.launch {
       val getPhotos = PetitApi.retrofitService.getAllPhotos()
+      _status.value = PetitApiStatus.LOADING
       try {
+        _status.value = PetitApiStatus.DONE
         _photos.value = getPhotos
       } catch (e: Exception) {
+        _status.value = PetitApiStatus.ERROR
         _photos.value = ArrayList()
       }
     }
