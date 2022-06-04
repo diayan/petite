@@ -46,8 +46,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
       <ImageView
@@ -58,8 +58,8 @@
           android:scaleType="centerCrop"
           app:imageUrl="@{photo.urLs.full}"
           app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintLeft_toLeftOf="parent"
-          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           tools:src="@tools:sample/backgrounds/scenic" />
 
@@ -75,7 +75,7 @@
           android:textSize="20sp"
           android:fontFamily="sans-serif-thin"
           android:textStyle="bold"
-          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintBottom_toBottomOf="@id/photoImageView"
           tools:text="Some text" />
 
