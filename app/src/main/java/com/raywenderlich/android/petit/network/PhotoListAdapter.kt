@@ -42,11 +42,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.raywenderlich.android.petit.databinding.ItemLayoutPhotoBinding
 
-class PhotoListAdapter(val onClickListener: () -> Unit) :
+class PhotoListAdapter(val onClickListener: OnClickListener) :
     ListAdapter<Photos, PhotoListAdapter.PhotoListViewHolder>(DiffCallback) {
 
-  class PhotoListViewHolder(private var binding: ItemLayoutPhotoBinding) : RecyclerView.ViewHolder
-  (binding.root) {
+  class PhotoListViewHolder(private var binding: ItemLayoutPhotoBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(photo: Photos) {
       binding.photo = photo
       Log.i("Binding: ", photo.toString())
@@ -71,11 +70,13 @@ class PhotoListAdapter(val onClickListener: () -> Unit) :
 
   override fun onBindViewHolder(holder: PhotoListViewHolder, position: Int) {
     val photo = getItem(position)
+    holder.itemView.setOnClickListener {
+      onClickListener.onClick(photo)
+    }
     holder.bind(photo)
   }
 
   class OnClickListener(val clickListener: (photo: Photos) -> Unit) {
-
     fun onClick(photo: Photos) = clickListener(photo)
   }
 }
