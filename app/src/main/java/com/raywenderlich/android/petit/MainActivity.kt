@@ -44,6 +44,7 @@ import com.raywenderlich.android.petit.network.PhotoListAdapter
  * Main Screen
  */
 class MainActivity : AppCompatActivity() {
+
   private lateinit var binding: ActivityMainBinding
 
   private lateinit var viewModel: MainViewModel
