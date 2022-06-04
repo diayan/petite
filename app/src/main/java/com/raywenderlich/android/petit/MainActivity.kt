@@ -44,6 +44,7 @@ import com.raywenderlich.android.petit.network.PhotoListAdapter
  * Main Screen
  */
 class MainActivity : AppCompatActivity() {
+  private lateinit var binding: ActivityMainBinding
 
   private lateinit var viewModel: MainViewModel
 
@@ -51,14 +52,15 @@ class MainActivity : AppCompatActivity() {
     // Switch to AppTheme for displaying the activity
     setTheme(R.style.AppTheme)
     super.onCreate(savedInstanceState)
+    binding = ActivityMainBinding.inflate(layoutInflater)
 
-    val binding = ActivityMainBinding.inflate(layoutInflater)
     binding.lifecycleOwner = this
 
-    binding.photosList.adapter = PhotoListAdapter {}
     viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
     binding.viewModel = viewModel
 
-    binding.root
+    binding.photosList.adapter = PhotoListAdapter(PhotoListAdapter.OnClickListener {
+    })
+    setContentView(binding.root)
   }
 }
