@@ -53,16 +53,7 @@ data class User(
     val username: String?,
     @Json(name = "total_photos")
     val totalPhotos: Int?,
-    @Json(name = "profile_image")
-    val profileImage: ProfileImage?
 ): Parcelable
-
-@Parcelize
-data class ProfileImage(
-    val small: String?,
-    val medium: String?,
-    val large: String?
-) : Parcelable
 
 @Parcelize
 data class ImageURLs(

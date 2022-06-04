@@ -28,6 +28,5 @@
         app:listData="@{viewModel.photos}"
         tools:itemCount="16"
         tools:listitem="@layout/item_layout_photo" />
-
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

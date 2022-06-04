@@ -34,7 +34,6 @@
 
 package com.raywenderlich.android.petit
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -47,30 +46,26 @@ enum class PetitApiStatus { LOADING, ERROR, DONE }
 class MainViewModel : ViewModel() {
   private val _status = MutableLiveData<PetitApiStatus>()
   val status: LiveData<PetitApiStatus>
-  get() = _status
+    get() = _status
 
   private val _photos = MutableLiveData<List<Photos>>()
   val photos: MutableLiveData<List<Photos>>
-  get() = _photos
+    get() = _photos
 
   private var viewModelJob = Job()
   private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
   init {
-    getPhotos()
-    Log.i("ViewModel: ", "ViewModel initialized")
+    getAllPhotos()
   }
 
-  private fun getPhotos() {
+  private fun getAllPhotos() {
     coroutineScope.launch {
       val getPhotos = PetitApi.retrofitService.getAllPhotos()
       try {
-        Log.i("ViewModel: ", "success")
         _photos.value = getPhotos
-        Log.i("Photos", photos.value.toString())
       } catch (e: Exception) {
         _photos.value = ArrayList()
-        Log.i("ViewModel: ", "failed ")
       }
     }
   }

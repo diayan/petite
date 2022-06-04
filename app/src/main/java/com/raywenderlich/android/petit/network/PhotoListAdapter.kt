@@ -45,7 +45,9 @@ import com.raywenderlich.android.petit.databinding.ItemLayoutPhotoBinding
 class PhotoListAdapter(val onClickListener: OnClickListener) :
     ListAdapter<Photos, PhotoListAdapter.PhotoListViewHolder>(DiffCallback) {
 
-  class PhotoListViewHolder(private var binding: ItemLayoutPhotoBinding) : RecyclerView.ViewHolder(binding.root) {
+  class PhotoListViewHolder(private var binding: ItemLayoutPhotoBinding) :
+      RecyclerView.ViewHolder(binding.root) {
+
     fun bind(photo: Photos) {
       binding.photo = photo
       Log.i("Binding: ", photo.toString())
@@ -55,6 +57,7 @@ class PhotoListAdapter(val onClickListener: OnClickListener) :
   }
 
   companion object DiffCallback : DiffUtil.ItemCallback<Photos>() {
+
     override fun areItemsTheSame(oldItem: Photos, newItem: Photos): Boolean {
       return oldItem === newItem
     }
@@ -77,6 +80,7 @@ class PhotoListAdapter(val onClickListener: OnClickListener) :
   }
 
   class OnClickListener(val clickListener: (photo: Photos) -> Unit) {
+
     fun onClick(photo: Photos) = clickListener(photo)
   }
 }
