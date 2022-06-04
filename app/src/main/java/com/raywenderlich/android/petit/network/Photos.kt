@@ -41,14 +41,21 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Photos(
     val id: String?,
-    val name: String?,
     val likes: String?,
     @Json(name = "urls")
     val urLs: ImageURLs?,
-    val downloads: Int?,
+    val user: User?
+) : Parcelable
+
+@Parcelize
+data class User(
+    val name: String?,
+    val username: String?,
+    @Json(name = "total_photos")
+    val totalPhotos: Int?,
     @Json(name = "profile_image")
     val profileImage: ProfileImage?
-) : Parcelable
+): Parcelable
 
 @Parcelize
 data class ProfileImage(
