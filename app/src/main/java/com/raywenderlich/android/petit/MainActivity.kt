@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
     setTheme(R.style.AppTheme)
     super.onCreate(savedInstanceState)
     binding = ActivityMainBinding.inflate(layoutInflater)
-
     binding.lifecycleOwner = this
 
     viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
