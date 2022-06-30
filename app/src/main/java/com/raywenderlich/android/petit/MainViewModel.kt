@@ -39,17 +39,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.raywenderlich.android.petit.network.PetitApi
 import com.raywenderlich.android.petit.network.Photos
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 enum class PetitApiStatus { LOADING, ERROR, DONE }
 
 class MainViewModel : ViewModel() {
+
   private val _status = MutableLiveData<PetitApiStatus>()
   val status: LiveData<PetitApiStatus>
     get() = _status
 
-  private val _photos = MutableLiveData<List<Photos>>()
-  val photos: MutableLiveData<List<Photos>>
+  private val _photos = MutableLiveData<MutableList<Photos>>()
+  val photos: MutableLiveData<MutableList<Photos>>
     get() = _photos
 
   private var viewModelJob = Job()
@@ -65,7 +69,7 @@ class MainViewModel : ViewModel() {
       _status.value = PetitApiStatus.LOADING
       try {
         _status.value = PetitApiStatus.DONE
-        _photos.value = getPhotos
+        _photos.postValue(getPhotos)
       } catch (e: Exception) {
         _status.value = PetitApiStatus.ERROR
         _photos.value = ArrayList()
