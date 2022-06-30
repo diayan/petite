@@ -35,10 +35,14 @@
 package com.raywenderlich.android.petit
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.raywenderlich.android.petit.databinding.ActivityMainBinding
 import com.raywenderlich.android.petit.network.PhotoListAdapter
+import java.util.*
 
 /**
  * Main Screen
@@ -59,8 +63,50 @@ class MainActivity : AppCompatActivity() {
     viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
     binding.viewModel = viewModel
 
+    //TODO 15: Implement clicking/selecting an item
     binding.photosList.adapter = PhotoListAdapter(PhotoListAdapter.OnClickListener {
+      //TODO 16: Display a toast to show item selected
+      Toast.makeText(this, "${it.user?.name?.capitalize()} Got clicked", Toast.LENGTH_LONG).show()
     })
+
+    //TODO 8: Create ItemTouchHelper object and override its methods
+    //TODO 11: Change first argument to include all directions
+    val helper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+      ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT or
+          ItemTouchHelper.DOWN or ItemTouchHelper.UP, ItemTouchHelper.LEFT or
+          ItemTouchHelper.RIGHT
+    ) {
+      override fun onMove(
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder,
+        target: RecyclerView.ViewHolder
+      ): Boolean {
+        //TODO 12: Get the original and target index of the card you are moving
+        val from = viewHolder.bindingAdapterPosition
+        val to = target.bindingAdapterPosition
+
+        //TODO 13: Call Collections.swap() to swap the items in the dataset (i.e photos)
+        Collections.swap(viewModel.photos.value, from, to)
+
+        //TODO 14: Notify the adapter of the card item's movement, and update it on the
+        // positions, the old and new and return true
+        (binding.photosList.adapter as PhotoListAdapter).notifyItemMoved(from, to)
+
+        return true
+      }
+
+      override fun onSwiped(
+        viewHolder: RecyclerView.ViewHolder,
+        direction: Int
+      ) {
+        //TODO 9: Implement swipe to delete
+        viewModel.photos.value?.removeAt(viewHolder.bindingAdapterPosition)
+        (binding.photosList.adapter as PhotoListAdapter).notifyItemRemoved(viewHolder.bindingAdapterPosition)
+      }
+    })
+
+    //TODO 10: Add ItemTouchHelper to recyclerview
+    helper.attachToRecyclerView(binding.photosList)
     setContentView(binding.root)
   }
 }
