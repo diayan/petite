@@ -48,8 +48,8 @@ class MainViewModel : ViewModel() {
   val status: LiveData<PetitApiStatus>
     get() = _status
 
-  private val _photos = MutableLiveData<List<Photos>>()
-  val photos: MutableLiveData<List<Photos>>
+  private val _photos = MutableLiveData<MutableList<Photos>>()
+  val photos: MutableLiveData<MutableList<Photos>>
     get() = _photos
 
   private var viewModelJob = Job()
@@ -65,7 +65,7 @@ class MainViewModel : ViewModel() {
       _status.value = PetitApiStatus.LOADING
       try {
         _status.value = PetitApiStatus.DONE
-        _photos.value = getPhotos
+        _photos.postValue(getPhotos)
       } catch (e: Exception) {
         _status.value = PetitApiStatus.ERROR
         _photos.value = ArrayList()

@@ -51,7 +51,7 @@ private val retrofit = Retrofit.Builder()
 
 interface PetitApiService {
   @GET("photos/?client_id=$ACCESS_KEY")
-  suspend fun getAllPhotos(): List<Photos>
+  suspend fun getAllPhotos(): MutableList<Photos>
 }
 
 object PetitApi {
