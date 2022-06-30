@@ -38,7 +38,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.raywenderlich.android.petit.databinding.ActivityMainBinding
-import com.raywenderlich.android.petit.network.PhotoListAdapter
+
 
 /**
  * Main Screen
@@ -60,8 +60,32 @@ class MainActivity : AppCompatActivity() {
     viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
     binding.viewModel = viewModel
 
-    binding.photosList.adapter = PhotoListAdapter(PhotoListAdapter.OnClickListener {
-    })
+    //TODO 8: Implement clicking/selecting an item
+
+    //TODO 9: Create ItemTouchHelper object and override its methods onMove and onSwiped
+
+    /**
+     * Implement Drag and drop in the onMove method
+     * **/
+    //TODO 13: Change first of ItemTouchHelper.SimpleCallback argument to include all directions
+
+    //TODO 14: Get the original and target index of the card you are moving
+
+    //TODO 15: Call Collections.swap() to swap the items in the dataset (i.e photos)
+
+    //TODO 16: Notify the adapter of the card item's movement, and update it on the
+    // positions, the old and new and return true
+
+    /**
+     * Implement Swipe to delete an item in the onSwiped method
+     * **/
+
+    //TODO 10: Implement swipe left or right to delete a card item in the onSwipe
+
+    //TODO 11: Notify RecyclerView after deleting an item to animate it
+
+    //TODO 12: Add ItemTouchHelper instance to the RecyclerView
+
     setContentView(binding.root)
   }
 }
