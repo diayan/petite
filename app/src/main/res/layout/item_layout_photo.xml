@@ -42,14 +42,6 @@
         type="com.raywenderlich.android.petit.network.Photos" />
   </data>
 
-  <!--TODO 1: Wrap view in androidx CardView-->
-  <!--TODO 2: Set cornerRadius property-->
-  <!--TODO 3: Set cardPreventCornerOverlap property-->
-  <!--TODO 4: Set cardElevation-->
-  <!--TODO 5: Set cardUseCompatPadding-->
-  <!--TODO 6: Set cardMaxElevation-->
-  <!--TODO 7: Setting clickable to true requires setting focusable to true too-->
-
   <androidx.cardview.widget.CardView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
