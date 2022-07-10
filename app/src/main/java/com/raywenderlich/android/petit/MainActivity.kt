@@ -63,9 +63,9 @@ class MainActivity : AppCompatActivity() {
     viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
     binding.viewModel = viewModel
 
-    binding.photosList.adapter = PhotoListAdapter(PhotoListAdapter.OnClickListener {
+    binding.photosList.adapter = PhotoListAdapter {
       Toast.makeText(this, "${it.user?.name?.capitalize()} Got clicked", Toast.LENGTH_LONG).show()
-    })
+    }
 
     val helper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
       ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT or
