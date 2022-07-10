@@ -39,10 +39,10 @@
   <data>
     <variable
         name="photo"
-        type="com.raywenderlich.android.petit.network.Photos" />
+        type="com.raywenderlich.android.petit.network.Photo" />
   </data>
 
-  <!--TODO 2: Wrap Constraintlayout in androidx CardView-->
+  <!--TODO 2: Wrap ConstraintLayout in androidx CardView-->
   <!--TODO 3: Set cornerRadius property-->
   <!--TODO 4: Set cardPreventCornerOverlap property-->
   <!--TODO 5: Set cardElevation-->

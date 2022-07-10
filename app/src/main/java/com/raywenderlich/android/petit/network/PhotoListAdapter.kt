@@ -43,12 +43,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.raywenderlich.android.petit.databinding.ItemLayoutPhotoBinding
 
 class PhotoListAdapter(private val onClickListener: OnClickListener) :
-    ListAdapter<Photos, PhotoListAdapter.PhotoListViewHolder>(DiffCallback) {
+    ListAdapter<Photo, PhotoListAdapter.PhotoListViewHolder>(DiffCallback) {
 
   class PhotoListViewHolder(private var binding: ItemLayoutPhotoBinding) :
       RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(photo: Photos) {
+    fun bind(photo: Photo) {
       binding.photo = photo
       Log.i("Binding: ", photo.toString())
       //force data binding to execute immediately
@@ -56,13 +56,13 @@ class PhotoListAdapter(private val onClickListener: OnClickListener) :
     }
   }
 
-  companion object DiffCallback : DiffUtil.ItemCallback<Photos>() {
+  companion object DiffCallback : DiffUtil.ItemCallback<Photo>() {
 
-    override fun areItemsTheSame(oldItem: Photos, newItem: Photos): Boolean {
+    override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {
       return oldItem === newItem
     }
 
-    override fun areContentsTheSame(oldItem: Photos, newItem: Photos): Boolean {
+    override fun areContentsTheSame(oldItem: Photo, newItem: Photo): Boolean {
       return oldItem.id == newItem.id
     }
   }
@@ -79,8 +79,8 @@ class PhotoListAdapter(private val onClickListener: OnClickListener) :
     holder.bind(photo)
   }
 
-  class OnClickListener(val clickListener: (photo: Photos) -> Unit) {
+  class OnClickListener(val clickListener: (photo: Photo) -> Unit) {
 
-    fun onClick(photo: Photos) = clickListener(photo)
+    fun onClick(photo: Photo) = clickListener(photo)
   }
 }
