@@ -38,7 +38,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.raywenderlich.android.petit.network.PetitApi
-import com.raywenderlich.android.petit.network.Photos
+import com.raywenderlich.android.petit.network.Photo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -52,8 +52,8 @@ class MainViewModel : ViewModel() {
   val status: LiveData<PetitApiStatus>
     get() = _status
 
-  private val _photos = MutableLiveData<MutableList<Photos>>()
-  val photos: MutableLiveData<MutableList<Photos>>
+  private val _photos = MutableLiveData<MutableList<Photo>>()
+  val photos: MutableLiveData<MutableList<Photo>>
     get() = _photos
 
   private var viewModelJob = Job()

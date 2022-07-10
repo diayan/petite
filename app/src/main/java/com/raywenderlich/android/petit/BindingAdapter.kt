@@ -43,10 +43,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.raywenderlich.android.petit.network.PhotoListAdapter
-import com.raywenderlich.android.petit.network.Photos
+import com.raywenderlich.android.petit.network.Photo
 
 @BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<Photos>?) {
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<Photo>?) {
   val adapter = recyclerView.adapter as? PhotoListAdapter?
   Log.i("adapter", data.toString())
   adapter?.submitList(data)

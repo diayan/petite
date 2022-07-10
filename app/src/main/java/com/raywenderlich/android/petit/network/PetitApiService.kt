@@ -40,21 +40,21 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
-private val moshi = Moshi.Builder()
+interface PetitApiService {
+  @GET("photos/?client_id=$ACCESS_KEY")
+  suspend fun getAllPhotos(): MutableList<Photo>
+}
+
+object PetitApi {
+  private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
-private val retrofit = Retrofit.Builder()
+  private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .baseUrl(BASE_URL)
     .build()
 
-interface PetitApiService {
-  @GET("photos/?client_id=$ACCESS_KEY")
-  suspend fun getAllPhotos(): MutableList<Photos>
-}
-
-object PetitApi {
   val retrofitService: PetitApiService by lazy {
     retrofit.create(PetitApiService::class.java)
   }

@@ -39,7 +39,7 @@
 
     <variable
         name="photo"
-        type="com.raywenderlich.android.petit.network.Photos" />
+        type="com.raywenderlich.android.petit.network.Photo" />
   </data>
 
   <androidx.cardview.widget.CardView
