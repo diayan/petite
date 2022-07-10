@@ -74,6 +74,7 @@ class PhotoListAdapter(private val onClickListener: (photo: Photo) -> Unit) :
   override fun onBindViewHolder(holder: PhotoListViewHolder, position: Int) {
     val photo = getItem(position)
     holder.itemView.setOnClickListener {
+      onClickListener(photo)
     }
     holder.bind(photo)
   }
