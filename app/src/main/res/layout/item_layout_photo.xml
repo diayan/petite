@@ -36,12 +36,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-  <data>
-    <variable
-        name="photo"
-        type="com.raywenderlich.android.petit.network.Photo" />
-  </data>
-
   <!--TODO 2: Wrap ConstraintLayout in androidx CardView-->
   <!--TODO 3: Set cornerRadius property-->
   <!--TODO 4: Set cardPreventCornerOverlap property-->
@@ -64,7 +58,6 @@
           android:layout_height="250dp"
           android:adjustViewBounds="true"
           android:scaleType="centerCrop"
-          app:imageUrl="@{photo.urLs.full}"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +71,6 @@
           android:layout_marginEnd="16dp"
           android:layout_marginStart="16dp"
           android:layout_marginBottom="16dp"
-          android:text='@{photo.user.name ?? ""}'
           android:textColor="@android:color/white"
           android:textSize="20sp"
           android:fontFamily="sans-serif-thin"
@@ -92,7 +84,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:drawableStart="@drawable/ic_favorite"
-          android:text="@{photo.likes}"
           android:layout_marginBottom="16dp"
           android:layout_marginEnd="16dp"
           android:fontFamily="sans-serif-thin"

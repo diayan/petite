@@ -35,9 +35,14 @@
 package com.raywenderlich.android.petit
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.raywenderlich.android.petit.databinding.ActivityMainBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.raywenderlich.android.petit.network.PhotoListAdapter
 
 
 /**
@@ -45,20 +50,29 @@ import com.raywenderlich.android.petit.databinding.ActivityMainBinding
  */
 class MainActivity : AppCompatActivity() {
 
-  private lateinit var binding: ActivityMainBinding
-
+  private lateinit var adapter: PhotoListAdapter
+  private lateinit var recyclerView: RecyclerView
+  private lateinit var statusImageView: ImageView
   private lateinit var viewModel: MainViewModel
 
   override fun onCreate(savedInstanceState: Bundle?) {
     // Switch to AppTheme for displaying the activity
     setTheme(R.style.AppTheme)
     super.onCreate(savedInstanceState)
-    binding = ActivityMainBinding.inflate(layoutInflater)
+    setContentView(R.layout.activity_main)
 
-    binding.lifecycleOwner = this
-
+    recyclerView = findViewById(R.id.photos_list)
+    statusImageView = findViewById(R.id.status_image)
     viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-    binding.viewModel = viewModel
+
+    viewModel.photos.observe(this, Observer {
+      adapter = PhotoListAdapter(it) {
+      }
+      Log.i("adapter", it.toString())
+
+      recyclerView.adapter = adapter
+      recyclerView.layoutManager = LinearLayoutManager(this)
+    })
 
     //TODO 8: Implement clicking/selecting an item
 
@@ -86,6 +100,5 @@ class MainActivity : AppCompatActivity() {
 
     //TODO 12: Add ItemTouchHelper instance to the RecyclerView
 
-    setContentView(binding.root)
   }
 }

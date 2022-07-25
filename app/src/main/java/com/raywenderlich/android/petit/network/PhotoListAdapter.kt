@@ -34,30 +34,27 @@
 
 package com.raywenderlich.android.petit.network
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.raywenderlich.android.petit.R
 import com.raywenderlich.android.petit.databinding.ItemLayoutPhotoBinding
 
-class PhotoListAdapter(private val onClickListener: (photo: Photo) -> Unit) :
+class PhotoListAdapter(
+    private val photos: MutableList<Photo>,
+    private val onClickListener: (photo: Photo) -> Unit) :
     ListAdapter<Photo, PhotoListAdapter.PhotoListViewHolder>(DiffCallback) {
 
-  class PhotoListViewHolder(private var binding: ItemLayoutPhotoBinding) :
-      RecyclerView.ViewHolder(binding.root) {
+  class PhotoListViewHolder(val binding: ItemLayoutPhotoBinding) :
+      RecyclerView.ViewHolder(binding.root)
 
-    fun bind(photo: Photo) {
-      binding.photo = photo
-      Log.i("Binding: ", photo.toString())
-      //force data binding to execute immediately
-      binding.executePendingBindings()
-    }
-  }
-
-  companion object DiffCallback : DiffUtil.ItemCallback<Photo>() {
-
+  companion object DiffCallback: DiffUtil.ItemCallback<Photo>() {
     override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {
       return oldItem === newItem
     }
@@ -72,10 +69,26 @@ class PhotoListAdapter(private val onClickListener: (photo: Photo) -> Unit) :
   }
 
   override fun onBindViewHolder(holder: PhotoListViewHolder, position: Int) {
-    val photo = getItem(position)
+    val photo = photos[position]
+    holder.binding.likesTextView.text = photo.likes.toString()
+    holder.binding.usernameTextView.text = photo.user?.name
+    bindImage(holder.binding.photoImageView, photo.urLs?.full)
+
     holder.itemView.setOnClickListener {
       onClickListener(photo)
     }
-    holder.bind(photo)
+  }
+
+  private fun bindImage(imgView: ImageView, imgUrl: String?) {
+    imgUrl?.let {
+      val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
+      Glide.with(imgView.context)
+          .load(imgUri)
+          .apply(RequestOptions()
+              .placeholder(R.drawable.loading_animation)
+              .error(R.drawable.ic_broken_image)
+          )
+          .into(imgView)
+    }
   }
 }
